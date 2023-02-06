@@ -4,21 +4,15 @@ pipeline{
     maven 'M3'
   }
     stages{
-       stage('Build'){
-            steps{
-                sh 'mvn clean package'
+       stage('build && SonarQube analysis') {
+            steps {
+                withSonarQubeEnv('My SonarQube Server') {
+                    // Optionally use a Maven environment you've configured already
+                    withMaven(maven:'Maven 3.5') {
+                        sh 'mvn clean package sonar:sonar'
+                    }
+                }
             }
-         }
-        stage('SonarQube analysis') {
-//    def scannerHome = tool 'SonarScanner 4.0';
-        steps{
-        withSonarQubeEnv('sonarqube-8.9.10') { 
-        // If you have configured more than one global server connection, you can specify its name
-//    sh"${scannerHome}/bin/sonar-scanner"
-      sh "mvn sonar:sonar"
-    }
-        }
-        }
        
     }
 }
