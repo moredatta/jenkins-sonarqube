@@ -3,7 +3,7 @@ pipeline{
     stages{
        stage('Build'){
             steps{
-                bat 'C:/Program Files/apache-maven-3.8.7/bin/mvn clean package'
+                sh 'mvn clean package'
             }
          }
         stage('SonarQube analysis') {
@@ -11,8 +11,8 @@ pipeline{
         steps{
         withSonarQubeEnv('sonarqube-8.9.10') { 
         // If you have configured more than one global server connection, you can specify its name
-//      bat "${scannerHome}/bin/sonar-scanner"
-        bat "mvn sonar:sonar"
+//    sh"${scannerHome}/bin/sonar-scanner"
+      sh "mvn sonar:sonar"
     }
         }
         }
