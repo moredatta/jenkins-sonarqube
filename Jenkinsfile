@@ -1,7 +1,7 @@
 pipeline{
     agent any
     environment {
-        PATH = "$PATH:C:/Program Files/Apache Software Foundation/Tomcat 10.0/bin"
+        PATH = "$PATH:C:/Program Files/apache-maven-3.8.7/bin"
     }
     stages{
        stage('Build'){
