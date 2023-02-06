@@ -6,7 +6,7 @@ pipeline{
     stages{
        stage('build && SonarQube analysis') {
             steps {
-                withSonarQubeEnv('sonarqube-8.9.10') {
+                withSonarQubeEnv('sonarQube-8.9.20') {
                     // Optionally use a Maven environment you've configured already
                    
                         sh 'mvn clean package sonar:sonar'
