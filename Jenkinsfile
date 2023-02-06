@@ -1,5 +1,9 @@
 pipeline{
     agent any
+     environment {
+        PATH = "$PATH: C:/Program Files/apache-maven-3.8.7"
+        bat echo $PATH
+    }
     stages{
        stage('Build'){
             steps{
