@@ -60,4 +60,4 @@ post {
                      attachmentsPattern: "${REPORT_FILE}" // Attach the generated report to the email
         }
     }
-}
+
