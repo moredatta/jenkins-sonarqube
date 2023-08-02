@@ -1,35 +1,30 @@
-pipeline{
+pipeline {
     agent any
+    
     tools {
-    maven 'M3'
-  }
+        maven 'M3'
+    }
+  
     environment {
         EMAIL_TO = 'dattatray@bioenabletech.com'
         REPORT_FILE = 'failure_report.txt' // File to store the failure report
     }
-    stages{
-       stage('build && SonarQube analysis') {
+
+    stages {
+        stage('build && SonarQube analysis') {
             steps {
                 withSonarQubeEnv('sonarqube-10.1') {
                     // Optionally use a Maven environment you've configured already
-                   
-                        sh 'mvn clean package sonar:sonar'
-                   
+                    sh 'mvn clean package sonar:sonar'
                 }
             }
-       }
-     //   stage("Quality gate") {
-      //      steps {
-     //           waitForQualityGate abortPipeline: true
-     //       }
-    //    }
-       
+        }
     }
-}
-post {
+    
+    post {
         always {
             sh 'echo "this is testing"'
-            sh 'rm failing_test.py'
+            sh 'rm failure_report.txt'
         }
         success {
             // Send an email notification on pipeline success (if needed)
@@ -47,9 +42,12 @@ post {
             }
             
             // Quality gate with waitForQualityGate step and a timeout of 1 minute
-            script {
-                timeout(time: 1, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
+            timeout(time: 1, unit: 'MINUTES') {
+                script {
+                    def qg = waitForQualityGate abortPipeline: true
+                    if (qg.status != 'OK') {
+                        currentBuild.result = 'FAILURE'
+                    }
                 }
             }
             
@@ -60,4 +58,4 @@ post {
                      attachmentsPattern: "${REPORT_FILE}" // Attach the generated report to the email
         }
     }
-
+}
