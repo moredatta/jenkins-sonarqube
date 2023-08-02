@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+
+<html>
 <head>
     <title>Welcome to Webhook from GitHub to Jenkins</title>
 </head>
