@@ -24,7 +24,7 @@ pipeline {
     post {
         always {
             sh 'echo "this is testing"'
-            sh 'rm failure_report.txt'
+           
         }
         success {
             // Send an email notification on pipeline success (if needed)
