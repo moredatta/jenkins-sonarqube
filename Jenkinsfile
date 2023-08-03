@@ -16,7 +16,7 @@ pipeline {
                 // Replace 'probelyScan' with the correct Probely code scanning step
                 // For example: probelyScan(targetId: 'YOUR_TARGET_ID', credentialsId: 'probly-test')
                 // Replace 'YOUR_TARGET_ID' with your actual Probely target ID
-                probelyScan credentialsId: 'probly-test'	
+                probelyScan targetId: '9nl6yy0TWWKv', credentialsId: 'probly-test'	
             }
         }
     }
