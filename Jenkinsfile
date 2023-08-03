@@ -11,6 +11,7 @@ pipeline {
     }
 
      }
+      stages {
         stage('Scan with Probely') {
             steps {
                 probelyScan targetId: '9nl6yy0TWWKv', credentialsId: 'probly-test'	
