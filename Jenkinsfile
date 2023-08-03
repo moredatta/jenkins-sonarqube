@@ -1,25 +1,26 @@
 pipeline {
-    agent any
-    
-    tools {
-        maven 'M3'
+    agent {
+        docker {
+            image 'maven:3-alpine' 
+        }
     }
-  
-    environment {
+     environment {
         EMAIL_TO = 'dattatray@bioenabletech.com'
         REPORT_FILE = 'failure_report.txt' // File to store the failure report
     }
-    
     stages {
-        stage('Scan with Probely') {
+        stage('Unit tests') { 
             steps {
-                // Replace 'probelyScan' with the correct Probely code scanning step
-                // For example: probelyScan(targetId: 'YOUR_TARGET_ID', credentialsId: 'probly-test')
-                // Replace 'YOUR_TARGET_ID' with your actual Probely target ID
-                probelyScan targetId: '9nl6yy0TWWKv', credentialsId: 'probly-test'	
+                sh './gradlew check'
             }
         }
+        stage('Scan with Probely') {
+            steps {
+                probelyScan targetId: '9nl6yy0TWWKv', credentialsId: 'probly-test', waitForScan: true, stopIfFailed: true, failThreshold: 'medium'
+            }
+         }
     }
+}
     
     post {
         always {
