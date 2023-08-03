@@ -10,16 +10,12 @@ pipeline {
         REPORT_FILE = 'failure_report.txt' // File to store the failure report
     }
 
-    stages {
-        stage('build && SonarQube analysis') {
+     }
+        stage('Scan with Probely') {
             steps {
-                withSonarQubeEnv('sonarqube-10.1') {
-                    // Optionally use a Maven environment you've configured already
-                    sh 'mvn clean package sonar:sonar'
-                }
+                probelyScan targetId: '9nl6yy0TWWKv', credentialsId: 'probly-test'	
             }
-        }
-    }
+         }
     
     post {
         always {
