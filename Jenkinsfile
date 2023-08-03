@@ -9,17 +9,18 @@ pipeline {
         EMAIL_TO = 'dattatray@bioenabletech.com'
         REPORT_FILE = 'failure_report.txt' // File to store the failure report
     }
+    
     stages {
         stage('Scan with Probely') {
             steps {
                 probelyScan targetId: '9nl6yy0TWWKv', credentialsId: 'probly-test'	
             }
-         }
+        }
+    }
     
     post {
         always {
             sh 'echo "this is testing"'
-           
         }
         success {
             // Send an email notification on pipeline success (if needed)
