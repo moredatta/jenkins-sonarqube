@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        gradle 'Gradle-test'
+    }
+
     environment {
         EMAIL_TO = 'dattatray@bioenabletech.com'
         REPORT_FILE = 'failure_report.txt' // File to store the failure report
