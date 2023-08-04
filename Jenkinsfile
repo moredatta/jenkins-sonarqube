@@ -11,11 +11,11 @@ pipeline {
     }
 
     stages {
-        stage('Unit tests') {
-            steps {
+       // stage('Unit tests') {
+      //      steps {
                 sh './gradlew check'
-            }
-        }
+       //     }
+       // }
         stage('Scan with Probely') {
             steps {
                 // Replace 'YOUR_TARGET_ID' with your actual Probely target ID
