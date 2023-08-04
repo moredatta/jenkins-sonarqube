@@ -13,7 +13,7 @@ pipeline {
     stages {
        // stage('Unit tests') {
       //      steps {
-                sh './gradlew check'
+       //         sh './gradlew check'
        //     }
        // }
         stage('Scan with Probely') {
